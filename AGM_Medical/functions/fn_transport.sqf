@@ -10,6 +10,8 @@
  * none
  */
 
+// @todo include carrying
+
 _this spawn {
   _unit = _this select 0;
 

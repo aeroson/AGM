@@ -13,6 +13,8 @@
 
 private ["_unit", "_item", "_displayName"];
 
+// @todo: Locality of item names
+
 _unit = _this select 0;
 _item = _this select 1;
 _displayName = getText (configFile >> "CfgWeapons" >> _item >> "displayName");

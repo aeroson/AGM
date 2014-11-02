@@ -2,6 +2,10 @@
 
 private ["_currentBlood"];
 
+// @todo pain effect
+// @todo bloodlevel effect
+// @todo alternative pain effect
+
 if (!hasInterface) exitWith {};
 
 AGM_BloodLevel_CC = ppEffectCreate ["ColorCorrections", 4206];
