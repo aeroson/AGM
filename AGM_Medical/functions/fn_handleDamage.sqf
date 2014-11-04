@@ -127,7 +127,24 @@ if (_selectionName != "") then {
 
 _damage = _damage + _newDamage;
 
-// @todo: assign orphan structural damage to torso (preferably without spawn)
+// Assign orphan structural damage to torso;
+// using spawn with custom damage handling here, but since I just
+// move damage, this shouldn't be any issue for the Killed EH
+_unit spawn {
+  sleep 0.001;
+
+  _damagesum = (_this getHitPointDamage "HitHead")
+    + (_this getHitPointDamage "HitBody")
+    + (_this getHitPointDamage "HitLeftArm")
+    + (_this getHitPointDamage "HitRightArm")
+    + (_this getHitPointDamage "HitLeftLeg")
+    + (_this getHitPointDamage "HitRightLeg");
+  if (_damagesum <= 0.06 and (damage _unit) > 0.01) then {
+    _damage = damage _unit;
+    _unit setDamage 0;
+    _unit setHitPointDamage ["HitBody", _damage];
+  };
+};
 
 // Leg Damage
 _legDamage = (_unit getHitPointDamage "HitLeftLeg") + (_unit getHitPointDamage "HitRightLeg");
