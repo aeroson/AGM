@@ -42,5 +42,5 @@ detach _unit;
 
 player removeWeapon "AGM_FakePrimaryWeapon";
 
-player setVariable ["AGM_CanTreat", true, false];
-_unit setVariable ["AGM_Treatable", true, true];
+player setVariable ["AGM_canTreat", true, false];
+_unit setVariable ["AGM_isTreatable", true, true];

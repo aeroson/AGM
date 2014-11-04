@@ -21,18 +21,18 @@ _this spawn {
     };
 
     [_this, "AGM_Unconscious", false] call AGM_Interaction_fnc_setCaptivityStatus;
-    _this setVariable ["AGM_Diagnosed", false, true];   // Is the unit diagnosed?
-    _this setVariable ["AGM_CanTreat", true, false];    // Can unit treat others?
-    _this setVariable ["AGM_Treatable", true, true];    // Can unit be treated/diagnosed?
+    _this setVariable ["AGM_isDiagnosed", false, true];   // Is the unit diagnosed?
+    _this setVariable ["AGM_canTreat", true, false];    // Can unit treat others?
+    _this setVariable ["AGM_isTreatable", true, true];    // Can unit be treated/diagnosed?
     _this setVariable ["AGM_Blood", 1, true];           // Amount of blood in the body.
-    _this setVariable ["AGM_Bleeding", false, true];    // Is the unit losing blood? (Rate is determined by damage.)
+    _this setVariable ["AGM_isBleeding", false, true];    // Is the unit losing blood? (Rate is determined by damage.)
     _this setVariable ["AGM_Painkiller", 1, true];      // How much painkillers the guy is on.
     _this setVariable ["AGM_Pain", 0, true];            // Amount of pain the unit is in.
-    _this setVariable ["AGM_InPain", false, true];      // Is the weid effect going on?
+    _this setVariable ["AGM_inPain", false, true];      // Is the weid effect going on?
     _this setVariable ["AGM_NoLegs", false, true];      // Is the unit able to walk?
     _this setVariable ["AGM_NoArms", false, true];      // Is the unit able to hold a gun?
-    _this setVariable ["AGM_Unconscious", false, true]; // figure it out
-    _this setVariable ["AGM_Overdosing", false];
+    _this setVariable ["AGM_isUnconscious", false, true]; // figure it out
+    _this setVariable ["AGM_isOverdosing", false];
     _this setVariable ["AGM_Transporting", objNull];
 
     [false] call AGM_Core_fnc_disableUserInput;
