@@ -151,10 +151,10 @@ _unit setHitPointDamage ["HitHands", 0];
 
 // Unconsciousness
 if (_selectionName == "" and _damage >= UNCONSCIOUSNESSTRESHOLD and _damage < 1 and !(_unit getVariable ["AGM_Unconscious", False])) then {
-  // random chance to kill AI instead of knocking them out.
-  // otherwise there'd be shittons of unconscious people after
-  // every firefight.
-  if (!(isPlayer _unit) and {random 1 > 0.5}) then {
+  // random chance to kill AI instead of knocking them out, otherwise
+  // there'd be shittons of unconscious people after every firefight, causing
+  // executions. And nobody likes executions.
+  if (!(isPlayer _unit) and {random 1 > 0.5}) then { // @todo: zeus compatibility
     _damage = 1;
   } else {
     [_unit] call AGM_Medical_fnc_knockOut;
