@@ -142,7 +142,7 @@ _unit spawn {
   if (_damagesum <= 0.06 and (damage _unit) > 0.01) then {
     _damage = damage _unit;
     _unit setDamage 0;
-    _unit setHitPointDamage ["HitBody", _damage];
+    _unit setHitPointDamage ["HitBody", (_damage min 0.89)]; // just to be sure.
   };
 };
 
@@ -164,6 +164,7 @@ else {
 
 // Arm Damage
 _armdamage = "haha just kidding there's no arm damage.";
+_armdamage = _armdamage + " (yet)";
 _unit setHitPointDamage ["HitHands", 0];
 
 // Unconsciousness
