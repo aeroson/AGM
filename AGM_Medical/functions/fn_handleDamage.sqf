@@ -87,6 +87,8 @@ if (isNil "AGM_Medical_FrameNo" or {diag_framno > AGM_Medical_FrameNo}) then {
 
 _damage = _damage - _newDamage;
 
+if !(_unit getVariable ["AGM_allowDamage", True]) exitWith {_damage};
+
 _newDamage = _newDamage * AGM_Medical_CoefDamage;
 
 // Exclude falling damage to everything other than legs, halve the structural damage.
@@ -188,31 +190,34 @@ if ((_selectionName == "") and (_potentialPain > _unit getVariable "AGM_Pain")) 
 
 // @todo: handle bleeding in clientinit
 
-// ================= EVERYTHING BELOW STILL NEEDS TO BE CHECKED ====================
-
-_preventDeath = false;
 // Only prevent death if we are going to handle unconciousness
-if (isPlayer _unit or _unit getVariable ["AGM_AllowUnconscious", false]) then {
+_preventDeath = False;
+if (([_unit] call AGM_Core_fnc_isPlayer) or _unit getVariable ["AGM_AllowUnconscious", false]) then {
   if (!(_unit getVariable "AGM_Unconscious") and {AGM_Medical_PreventInstaDeath > 0}) then {
-    _preventDeath = true;
+    _preventDeath = True;
   };
   if ((_unit getVariable "AGM_Unconscious") and {AGM_Medical_PreventDeathWhileUnconscious > 0}) then {
-    _preventDeath = true;
+    _preventDeath = True;
   };
 };
 
-if (_preventDeath and vehicle _unit != _unit and damage (vehicle _unit) >= 1) exitWith {
+// @todo: some serious testing
+// again, using spawn, but there shouldn't be any death, so the killed EH should be fine.
+if (_preventDeath and {vehicle _unit != _unit} and {damage (vehicle _unit) >= 1} exitWith {
   _unit setPosATL [(getPos _unit select 0) + (random 3) - 1.5, (getPos _unit select 1) + (random 3) - 1.5, 0];
-  [_unit, "HitBody", 0.89, true] call AGM_Medical_fnc_setHitPointDamage;
-  [_unit] call AGM_Medical_fnc_knockOut;
-  _unit allowDamage false;
+  if !(_unit getVariable ["AGM_Unconscious", False]) then {
+    [_unit] call AGM_Medical_fnc_knockOut;
+  };
+  _unit setVariable ["AGM_allowDamage", False];
   _unit spawn {
     sleep 1;
-    _this allowDamage true;
+    _unit setVariable ["AGM_allowDamage", True];
   };
 };
 
 if (_preventDeath) then {
-  _damage = _damage min 0.89;
+  _damage min 0.98
+} else {
+  _damage
 };
 
