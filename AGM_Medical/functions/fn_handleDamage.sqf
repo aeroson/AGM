@@ -40,7 +40,7 @@ if (damage _unit == 1) exitWith {};
 
 _unit setVariable ["AGM_Diagnosed", False, True];
 
-// @todo custom eventhandlers
+// @todo: custom eventhandlers
 // @todo: figure out if this still applies.
 
 // For some reason, everything is backwards in MP,
@@ -92,7 +92,7 @@ if !(_unit getVariable ["AGM_allowDamage", True]) exitWith {_damage};
 _newDamage = _newDamage * AGM_Medical_CoefDamage;
 
 // Exclude falling damage to everything other than legs, halve the structural damage.
-// @todo Figure out why this still doesn't work
+// @todo: figure out why this still doesn't work
 if (((velocity _unit) select 2 < -5) and (vehicle _unit == _unit)) then {
   AGM_Medical_isFalling = True;
 };
